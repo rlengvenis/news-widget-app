@@ -5,12 +5,14 @@ import store from '../configureStore'
 
 import './Root.css';
 
+import NewsPage from './newsPage/NewsPage';
+
 
 const Root = () => (
   <Provider store={store}>
     <div>
       <main className="container">
-          Hello world
+        <NewsPage/>
       </main>
     </div>
   </Provider>
