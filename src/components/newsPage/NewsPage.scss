@@ -1,0 +1,39 @@
+@import "../../styles/core/variables.scss";
+
+.news {
+  &__list {
+    list-style: none;
+  }
+
+  &__list-item {
+    border-bottom: 1px dotted $color-grey;
+    margin-bottom: 15px;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $color-black;
+    font-size: 16px;
+    font-weight: $font-weight-bold;
+  }
+
+  &__details {
+    margin: 10px 0;
+  }
+
+  &__source {
+    margin: 0 10px;
+    padding: 0 10px;
+    height: 20px;
+    color: $color-white;
+    border-radius: 10px;
+    background-color: $color-grey;
+  }
+
+  &__show-more-btn {
+    color: $color-red;
+    border: 2px solid $color-red;
+    padding: 10px;
+    cursor: pointer;
+  }
+}

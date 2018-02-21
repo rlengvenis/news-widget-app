@@ -3,8 +3,10 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as newsActions from '../../actions/newsActions';
-
 import DefaultSpinner from '../shared/DefaultSpinner/DefaultSpinner';
+
+import "./NewsPage.css";
+
 
 const MORE_ITEMS_AMOUNT = 5;
 
@@ -50,15 +52,23 @@ export class NewsPage extends React.Component {
 
     return (
       <div>
-        <ul>
+        <ul className="news__list">
           {
             visibleItems.map((newsItem, index) => {
               return (
-                <li key={index}>
-                  <a href={newsItem.url}>{newsItem.title}</a>
-                  <div>
+                <li
+                  key={index}
+                  className="news__list-item"
+                >
+                  <a
+                    className="news__link"
+                    href={newsItem.url}
+                  >
+                    {newsItem.title}
+                  </a>
+                  <div className="news__details">
                     <span>{newsItem.publishedAt}</span>
-                    <span>{newsItem.source.name}</span>
+                    <span className="news__source">{newsItem.source.name}</span>
                   </div>
                 </li>
               )
@@ -69,6 +79,7 @@ export class NewsPage extends React.Component {
           filteredNews.length > this.state.itemsToShow && (
             <div className="news__control">
               <button
+                className="news__show-more-btn"
                 type="button"
                 onClick={this.handleShowMoreItems}
               >
