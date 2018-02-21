@@ -39,14 +39,6 @@ export class NewsPage extends React.Component {
         <div className="news__section">
           {this.renderNewsList()}
         </div>
-        <div className="news__control">
-          <button
-            type="button"
-            onClick={this.handleShowMoreItems}
-          >
-            Show more
-          </button>
-        </div>
       </div>
     );
   }
@@ -57,21 +49,35 @@ export class NewsPage extends React.Component {
     const visibleItems = this.getVisibleItems(filteredNews);
 
     return (
-      <ul>
+      <div>
+        <ul>
+          {
+            visibleItems.map((newsItem, index) => {
+              return (
+                <li key={index}>
+                  <a href={newsItem.url}>{newsItem.title}</a>
+                  <div>
+                    <span>{newsItem.publishedAt}</span>
+                    <span>{newsItem.source.name}</span>
+                  </div>
+                </li>
+              )
+            })
+          }
+        </ul>
         {
-          visibleItems.map((newsItem, index) => {
-            return (
-              <li key={index}>
-                <a href={newsItem.url}>{newsItem.title}</a>
-                <div>
-                  <span>{newsItem.publishedAt}</span>
-                  <span>{newsItem.source.name}</span>
-                </div>
-              </li>
-            )
-          })
+          filteredNews.length > this.state.itemsToShow && (
+            <div className="news__control">
+              <button
+                type="button"
+                onClick={this.handleShowMoreItems}
+              >
+                Show more
+              </button>
+            </div>
+          )
         }
-      </ul>
+      </div>
     );
   }
 
