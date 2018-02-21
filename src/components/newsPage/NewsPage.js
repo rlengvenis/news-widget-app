@@ -6,6 +6,7 @@ import * as newsActions from '../../actions/newsActions';
 
 import DefaultSpinner from '../shared/DefaultSpinner/DefaultSpinner';
 
+const MORE_ITEMS_AMOUNT = 5;
 
 export class NewsPage extends React.Component {
 
@@ -13,7 +14,8 @@ export class NewsPage extends React.Component {
     super(props);
 
     this.state = {
-      filterType: ''
+      filterType: '',
+      itemsToShow: 5
     };
   }
 
@@ -37,6 +39,14 @@ export class NewsPage extends React.Component {
         <div className="news__section">
           {this.renderNewsList()}
         </div>
+        <div className="news__control">
+          <button
+            type="button"
+            onClick={this.handleShowMoreItems}
+          >
+            Show more
+          </button>
+        </div>
       </div>
     );
   }
@@ -44,11 +54,12 @@ export class NewsPage extends React.Component {
   renderNewsList() {
     const {news} = this.props;
     const filteredNews = this.filterNewsItems(news);
+    const visibleItems = this.getVisibleItems(filteredNews);
 
     return (
       <ul>
         {
-          filteredNews.map((newsItem, index) => {
+          visibleItems.map((newsItem, index) => {
             return (
               <li key={index}>
                 <a href={newsItem.url}>{newsItem.title}</a>
@@ -81,13 +92,29 @@ export class NewsPage extends React.Component {
     this.setState({
       filterType: e.target.value
     });
-  }
+  };
+
+  handleShowMoreItems = () => {
+    this.setState({
+      itemsToShow: this.state.itemsToShow + MORE_ITEMS_AMOUNT
+    });
+  };
 
   filterNewsItems(news) {
     const {filterType} = this.state;
 
     if (filterType) {
       return news.filter(newsItem => newsItem.source.name === filterType);
+    }
+
+    return news;
+  }
+
+  getVisibleItems(news) {
+    const {itemsToShow} = this.state;
+
+    if (itemsToShow < news.length) {
+      return news.slice(0, itemsToShow);
     }
 
     return news;
