@@ -28,7 +28,6 @@ export class NewsPage extends React.Component {
   render() {
     const {news} = this.props;
 
-
     if (!news) {
       return <DefaultSpinner/>
     }
